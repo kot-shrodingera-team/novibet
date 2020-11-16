@@ -1,0 +1,85 @@
+<div id="betslip">
+  <!-- ko if: BetSlipView() == "betslip" -->
+  <!-- ko if: BetSlip -->
+  <!-- ko with: BetSlip -->
+  <!-- ko template: { name: Template } -->
+  <div class="bs_header">
+    <div class="betslip">
+      <h3 data-bind="resxText: 'BetSlip.Title', TooltipContent: { container: 'body', placement: 'auto' }" title=""
+        data-html="true" data-original-title="Bet Slip">Bet Slip</h3>
+      <div class="badge" data-bind="text: NumSelections">1</div>
+    </div>
+    <div class="openbets disabled"
+      data-bind="click: function(){ bb.pages.currentModel().BetSlipView(bb.constants.betSlipView.openBets); }">
+      <h3 data-bind="resxText: 'BetSlip.OpenBets', TooltipContent: { container: 'body', placement: 'auto' }" title=""
+        data-html="true" data-original-title="Open">Open</h3>
+      <div class="badge" data-bind="text: GetOpenBetsCount()">1</div>
+    </div>
+  </div>
+  <div class="bs_selections m-noTouch">
+    <!-- ko if: $data.IsBetBuilder()-->
+    <!-- /ko -->
+    <!-- ko ifnot: $data.IsBetBuilder()-->
+    <!-- ko foreach: Selections.Items -->
+    <div class="selection" data-bind="css: { false: !IsSelected() }">
+      <div class="market">
+        <span class="select">
+          <input type="checkbox" data-bind="checked: IsSelected">
+          <span class="iconCheck icon-check"></span>
+        </span>
+        <div class="selection_wrapper">
+          <div class="point" data-bind="text: OutcomeCaption, TooltipContent:{}" title="" data-html="true"
+            data-original-title="Sidharth Rawat">Sidharth Rawat</div>
+          <div class="on_market" data-bind="text: BetTypeCaption, TooltipContent:{}" title="" data-html="true"
+            data-original-title="2nd Set Winner">2nd Set Winner</div>
+        </div>
+      </div>
+      <div class="event" data-bind="text: BetContextCaption">Guy DEN Ouden - Sidharth Rawat</div>
+      <div class="odd">
+        <span class="banker" data-bind="css: { true: IsBanker }, resxText: 'BetSlip.Banker'">B</span>
+        <span class="price" data-bind="text: PriceText">1.38</span>
+        <span class="amount" data-bind="text: Amount">0.1</span>
+      </div>
+      <div class="messageContainer" data-bind="visible: IsRejectionMessageVisible" style="display: none;">
+        <span class="icon-attention"></span>
+        <div class="message" data-bind="value: RejectionMessage"></div>
+      </div>
+    </div>
+    <!-- /ko -->
+    <div class="systems m-noTouch" data-bind="foreach: Selections.MultiplesItems"></div>
+    <!-- /ko -->
+    <div class="totals">
+      <div class="cost">
+        <span class="title" data-bind="resxText: 'BetSlip.BetCost'">Total:</span>
+        <span class="amount" data-bind="text: Selections.TotalCost">0.1</span>
+      </div>
+      <div class="profit">
+        <span class="title" data-bind="resxText: 'BetSlip.Winnings'">Winnings:</span>
+        <span class="amount" data-bind="text: Selections.TotalReturns">0.14</span>
+      </div>
+    </div>
+    <div class="submit">
+      <button type="button" data-bind="resxText: 'BetSlip.Submit'">Submit</button>
+    </div>
+  </div>
+  <div class="bs_footer"></div>
+  <div class="bs_overlay" style="display: block">
+    <div class="message" data-bind="text: Message">Your bets will be placed shortly...</div>
+    <div class="timer"
+      data-bind="betslipTimer: { remainingSeconds: RemainingSeconds, totalSeconds: TotalSeconds, showCountdown: ShowCountdown }"
+      data-timer="7" data-tc-id="8c00fbb0-1dfc-ba14-22d1-34b4e2c3ce84"><canvas width="55" height="55"
+        style="position: relative; z-index: 1;"></canvas>
+      <div class="time_circles"><canvas width="55" height="55"></canvas>
+        <div class="textDiv_Seconds" style="top: 19px; left: 0px; width: 55px;">
+          <h4 style="font-size: 4px; line-height: 4px;"></h4><span style="font-size: 12px; line-height: 4px;">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- ko if: BetSlipView() == "openbets" -->
+  <!-- /ko -->
+</div>

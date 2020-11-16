@@ -1,0 +1,96 @@
+<div id="betslip">
+  <!-- ko if: BetSlipView() == "betslip" -->
+  <!-- ko if: BetSlip -->
+  <!-- ko with: BetSlip -->
+  <!-- ko template: { name: Template } -->
+  <div class="bs_header">
+    <div class="betslip">
+      <h3 data-bind="resxText: 'BetSlip.Title', TooltipContent: { container: 'body', placement: 'auto' }" title=""
+        data-html="true" data-original-title="Bet Slip">Bet Slip</h3>
+      <div class="badge" data-bind="text: NumSelections">1</div>
+    </div>
+    <div class="openbets disabled"
+      data-bind="click: function(){ bb.pages.currentModel().BetSlipView(bb.constants.betSlipView.openBets); }">
+      <h3 data-bind="resxText: 'BetSlip.OpenBets', TooltipContent: { container: 'body', placement: 'auto' }" title=""
+        data-html="true" data-original-title="Open">Open</h3>
+      <div class="badge" data-bind="text: GetOpenBetsCount()">1</div>
+    </div>
+  </div>
+  <div class="bs_selections">
+    <!-- ko if: $data.IsBetBuilder()-->
+    <!-- /ko -->
+    <!-- ko ifnot: $data.IsBetBuilder()-->
+    <!-- ko foreach: Selections.Items -->
+    <div class="selection m-noTouch" data-bind="css: { false: !IsSelected() }">
+      <div class="market">
+        <span class="select">
+          <input type="checkbox" data-bind="checked: IsSelected">
+          <span class="iconCheck icon-check"></span>
+        </span>
+        <div class="selection_wrapper">
+          <div class="point" data-bind="text: OutcomeCaption, TooltipContent:{}" title="" data-html="true"
+            data-original-title="Andriy Sitak">Andriy Sitak</div>
+          <div class="on_market" data-bind="text: BetTypeCaption, TooltipContent:{}" title="" data-html="true"
+            data-original-title="Match Winner">Match Winner</div>
+        </div>
+      </div>
+      <div class="event" data-bind="text: BetContextCaption">Valerij Rakov - Andriy Sitak</div>
+      <div class="odd">
+        <span class="banker" data-bind="css: { true: IsBanker }, resxText: 'BetSlip.Banker'">B</span>
+        <span class="price" data-bind="text: PriceText">1.52</span>
+        <span class="amount m-viewMode" data-bind="text: PrettyAmount, visible: Amount() > 0">€0.10</span>
+      </div>
+      <div class="messageContainer" data-bind="visible: IsRejectionMessageVisible" style="display: none;">
+        <span class="icon-attention"></span>
+        <div class="message" data-bind="value: RejectionMessage"></div>
+      </div>
+    </div>
+    <!-- /ko -->
+    <div class="systems m-noTouch" data-bind="foreach: Selections.MultiplesItems"></div>
+    <!-- /ko -->
+    <div class="totals">
+      <div class="cost">
+        <span class="title" data-bind="resxText: 'BetSlip.BetCost'">Total:</span>
+        <span class="amount" data-bind="text: PrettyTotalCost">€0.10</span>
+      </div>
+      <div class="cost">
+        <span class="title" data-bind="resxText: 'BetSlip.Bonus'">Acca Price Boost:</span>
+        <span class="amount" data-bind="text: PrettyTotalBonus">€0.00</span>
+      </div>
+      <div class="cost">
+        <span class="title" data-bind="resxText: 'BetSlip.GrossWinnings'">Returns:</span>
+        <span class="amount" data-bind="text: PrettyTotalReturns">€0.15</span>
+      </div>
+      <!-- ko if: $root.UserSession.isAuthenticated == true && (bb.pages.currentModel().BetSlip().Selections.HasTax()) -->
+      <!-- /ko -->
+    </div>
+    <div class="info">
+      <div class="messageContainer">
+        <span class="checkIcon icon-check"></span>
+        <div class="message" data-bind="text: Message">Your bets have been placed!</div>
+      </div>
+    </div>
+    <div class="info option">
+      <div class="message">
+        <div class="select">
+          <input type="checkbox" data-bind="checked: KeepSelections, click: ToggleKeepSelections">
+          <span class="iconCheck icon-check"></span>
+        </div>
+        <div class="text">
+          <!-- ko resxText: 'BetSlip.KeepSelections' -->Keep selections
+          <!-- /ko -->
+        </div>
+      </div>
+    </div>
+    <div class="submit">
+      <button type="button" data-bind="click: Continue, resxText: 'BetSlip.Continue'">Continue</button>
+    </div>
+  </div>
+  <!--<div class="bs_footer"></div>-->
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- ko if: BetSlipView() == "openbets" -->
+  <!-- /ko -->
+</div>

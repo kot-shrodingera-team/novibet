@@ -1,0 +1,116 @@
+<div id="betslip">
+  <!-- ko if: BetSlipView() == "betslip" -->
+  <!-- ko if: BetSlip -->
+  <!-- ko with: BetSlip -->
+  <!-- ko template: { name: Template } -->
+  <div class="bs_header">
+    <div class="betslip">
+      <div class="headerContainer">
+        <h3 data-bind="resxText: 'BetSlip.Title', TooltipContent: { container: 'body', placement: 'auto' }" title=""
+          data-html="true" data-original-title="Bet Slip">Bet Slip</h3>
+        <div class="subtitle">
+          <span ga-category="Bet Slip" ga-action="Clear All" class="clear_bs true"
+            data-bind="click: Clear, resxText: 'BetSlip.ClearAll'">Clear All</span>
+        </div>
+      </div>
+      <div class="badge" data-bind="text: NumSelections">1</div>
+    </div>
+    <div class="openbets disabled"
+      data-bind="click: function(){ bb.pages.currentModel().BetSlipView(bb.constants.betSlipView.openBets); }">
+      <h3 data-bind="resxText: 'BetSlip.OpenBets', TooltipContent: { container: 'body', placement: 'auto' }" title=""
+        data-html="true" data-original-title="Open">Open</h3>
+      <div class="badge" data-bind="text: GetOpenBetsCount()">1</div>
+    </div>
+  </div>
+  <div class="bs_selections">
+    <!--ko if: bb.pages.currentModel().UserSessionModel().isAuthenticated()-->
+    <!--ko if: !bb.pages.currentModel().BettingAppSettingsModel().bettingAllowed-->
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: $data.IsBetBuilder()-->
+    <!-- /ko -->
+    <!-- ko ifnot: $data.IsBetBuilder()-->
+    <!-- ko foreach: Selections.Items -->
+    <div class="selection" data-bind="css: { false: !IsSelected() }">
+      <div class="market">
+        <span class="select">
+          <input type="checkbox" data-bind="checked: IsSelected">
+          <span class="iconCheck icon-check"></span>
+        </span>
+        <div class="selection_wrapper">
+          <div class="point" data-bind="text: OutcomeCaption, TooltipContent:{}" title="" data-html="true"
+            data-original-title="Sidharth Rawat">Sidharth Rawat</div>
+          <div class="on_market" data-bind="text: BetTypeCaption, TooltipContent:{}" title="" data-html="true"
+            data-original-title="2nd Set Winner">2nd Set Winner</div>
+        </div>
+        <span ga-category="Bet Slip" ga-action="Remove" class="remove icon-close" data-bind="click: Remove"></span>
+      </div>
+      <div class="event" data-bind="text: BetContextCaption , TooltipContent:{}" title="" data-html="true"
+        data-original-title="Guy DEN Ouden - Sidharth Rawat">Guy DEN Ouden - Sidharth Rawat</div>
+      <div class="odd">
+        <span class="banker"
+          data-bind="css: { true: IsBanker }, click: ToggleBanker, resxText: 'BetSlip.Banker', TooltipResx: { resxKey : 'Tooltips.Banker', showAlways : true }"
+          title="" data-original-title="Banker">B</span>
+        <span class="price" data-bind="text: PriceText">1.59</span>
+        <span class="amount">
+          <input type="text"
+            data-bind="textInput: Amount, disable: IsAmountReadonly, attr: { placeholder: AmountPlaceholder }"
+            maxlength="8" placeholder="amount">
+        </span>
+      </div>
+      <div class="messageContainer" data-bind="visible: IsRejectionMessageVisible" style="display: none;">
+        <span class="icon-attention"></span>
+        <div class="message" data-bind="text: RejectionMessage"></div>
+      </div>
+    </div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: Selections.MultiplesItems().length > 0-->
+    <!-- /ko -->
+    <div class="totals">
+      <div class="cost">
+        <span class="title" data-bind="resxText: 'BetSlip.BetCost'">Total:</span>
+        <span class="amount" data-bind="text: CalculatedTotalCost">€0.00</span>
+      </div>
+      <div class="cost">
+        <span class="title" data-bind="resxText: 'BetSlip.Bonus'">Acca Price Boost:</span>
+        <span class="amount" data-bind="text: CalculatedTotalBonus">€0.00</span>
+      </div>
+      <div class="cost">
+        <span class="title" data-bind="resxText: 'BetSlip.GrossWinnings'">Returns:</span>
+        <span class="amount" data-bind="text: CalculatedTotalReturnsGross">€0.00</span>
+      </div>
+      <!-- ko if: $root.UserSession.isAuthenticated == true && (bb.pages.currentModel().BetSlip().Selections.HasTax()) -->
+      <!-- /ko -->
+    </div>
+    <div id="errorContainer" class="info error" data-bind="visible: IsMessageVisible" style="display: none;">
+      <div class="messageContainer">
+        <span class="icon-attention"></span>
+        <div class="message" data-bind="text: Message"></div>
+      </div>
+    </div>
+    <div class="freebet field" data-bind="visible: IsFreeBetAvailable" style="display: none;">
+      <div class="select">
+        <input type="checkbox" data-bind="checked: IsFreeBetSelected">
+        <span class="iconCheck icon-check"></span>
+      </div>
+      <div class="freebetMessage" data-bind="text: FreeBet.AmountMessage"></div>
+      <!-- ko if: IsHowToVisible -->
+      <!-- /ko -->
+    </div>
+    <div class="submit">
+      <button type="button"
+        data-bind="click: SubmitBets, visible: IsSubmitVisible, resxText: 'BetSlip.Submit'">Submit</button>
+      <button type="button"
+        data-bind="click: AcceptChanges, visible: IsAcceptChangesVisible, resxText: 'BetSlip.AcceptChanges'"
+        style="display: none;">Accept Changes</button>
+    </div>
+  </div>
+  <!--<div class="bs_footer"></div>-->
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- /ko -->
+  <!-- ko if: BetSlipView() == "openbets" -->
+  <!-- /ko -->
+</div>
