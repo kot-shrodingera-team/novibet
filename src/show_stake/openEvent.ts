@@ -1,4 +1,4 @@
-import { log } from '@kot-shrodingera-team/germes-utils';
+import { awaiter, log } from '@kot-shrodingera-team/germes-utils';
 import JsFailError from './errors/jsFailError';
 
 const openEvent = async (): Promise<void> => {
@@ -32,6 +32,8 @@ const openEvent = async (): Promise<void> => {
   if (!event) {
     throw new JsFailError('Событие не найдено');
   }
+  log('Событие найдено', 'steelblue');
+  log('Открываем страницу события', 'orange');
 
   const eventNavigateElement = event.querySelector(
     '.competitors'
@@ -40,6 +42,19 @@ const openEvent = async (): Promise<void> => {
     throw new JsFailError('Не найден элемент для перехода в событие');
   }
   eventNavigateElement.click();
+
+  const matchSelected = await awaiter(
+    () => {
+      return event.classList.contains('selected');
+    },
+    5000,
+    4
+  );
+  if (matchSelected) {
+    log('Событие открыто', 'steelblue');
+  } else {
+    throw new JsFailError('Не удалось перейти на страницу события');
+  }
 };
 
 export default openEvent;
