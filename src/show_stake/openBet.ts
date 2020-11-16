@@ -12,12 +12,12 @@ const openBet = async (): Promise<void> => {
 
   log(`Ставка "${worker.BetName}"`, 'steelblue');
 
-  log(`Ищем маркет "${marketName}"`, 'steelblue');
+  log(`Ищем маркет "${marketName.trim()}"`, 'steelblue');
 
   const marketTitles = [...document.querySelectorAll('.market .title')];
   const targetMarketTitleElement = marketTitles.find((marketTitle) => {
     const marketTitleText = marketTitle.textContent.trim();
-    return ri`^${marketName}$`.test(marketTitleText);
+    return ri`^${marketName.trim()}$`.test(marketTitleText);
   });
 
   if (!targetMarketTitleElement) {
