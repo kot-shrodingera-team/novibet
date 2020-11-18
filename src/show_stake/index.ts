@@ -90,6 +90,10 @@ const showStake = async (): Promise<void> => {
       couponOpenning = false;
       localStorage.setItem('couponOpening', '0');
       worker.JSFail();
+      if (error.message === 'Событие не найдено') {
+        log('Возможно завис список событий. Перезагружаем страницу', 'orange');
+        window.location.reload();
+      }
     }
     if (error instanceof NewUrlError) {
       log(error.message, 'orange');
