@@ -3,9 +3,9 @@ import JsFailError from './errors/jsFailError';
 import NewUrlError from './errors/newUrlError';
 
 const preCheck = async (): Promise<void> => {
-  if (!/^\/live-betting/.test(window.location.pathname)) {
+  if (!/\/live-betting/.test(window.location.pathname)) {
     log('Открыт не Live', 'crimson');
-    window.location.pathname = '/live-betting';
+    window.location.pathname = '/en/live-betting';
     throw new NewUrlError('Переходим на Live');
   } else {
     log('Открыт Live', 'steelblue');
