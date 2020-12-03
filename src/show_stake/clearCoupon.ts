@@ -4,6 +4,13 @@ import getStakeCount from '../stake_info/getStakeCount';
 // import getMaximumStake from '../stake_info/getMaximumStake';
 
 const preCheck = (): boolean => {
+  const continueButton = document.querySelector(
+    '.submit button[data-bind*="Continue"]:not([style="display: none;"])'
+  ) as HTMLElement;
+  if (continueButton) {
+    log('В купоне есть кнопка "Continue". Нажимаем', 'orange');
+    return true;
+  }
   const stakeCount = getStakeCount();
   const betPlacedIconElement = document.querySelector(
     '#betslip .bs_selections .info .checkIcon'
