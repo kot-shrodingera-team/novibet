@@ -1,5 +1,5 @@
 import { awaiter, log } from '@kot-shrodingera-team/germes-utils';
-import JsFailError from './errors/jsFailError';
+import { JsFailError } from '@kot-shrodingera-team/germes-utils/errors';
 
 const openEvent = async (): Promise<void> => {
   const eventId = worker.EventId;
@@ -35,9 +35,9 @@ const openEvent = async (): Promise<void> => {
   log('Событие найдено', 'steelblue');
   log('Открываем страницу события', 'orange');
 
-  const eventNavigateElement = event.querySelector(
+  const eventNavigateElement = event.querySelector<HTMLElement>(
     '.competitors, .matchCompetitors'
-  ) as HTMLElement;
+  );
   if (!eventNavigateElement) {
     throw new JsFailError('Не найден элемент для перехода в событие');
   }

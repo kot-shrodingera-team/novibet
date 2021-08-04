@@ -1,12 +1,39 @@
-import { log } from '@kot-shrodingera-team/germes-utils';
+import {
+  getWorkerParameter,
+  log,
+  text,
+} from '@kot-shrodingera-team/germes-utils';
 
 const getParameter = (): number => {
-  const betNameElement = document.querySelector('.point');
+  if (
+    getWorkerParameter('fakeParameter') ||
+    getWorkerParameter('fakeOpenStake')
+  ) {
+    const parameter = Number(JSON.parse(worker.ForkObj).param);
+    if (Number.isNaN(parameter)) {
+      return -6666;
+    }
+    return parameter;
+  }
+
+  // const marketNameSelector = '#betslip .on_market';
+  const betNameSelector = '#betslip .point';
+
+  // const marketNameElement = document.querySelector(marketNameSelector);
+  const betNameElement = document.querySelector(betNameSelector);
+
+  // if (!marketNameElement) {
+  //   log('Не найден маркет ставки', 'crimson');
+  //   return -9999;
+  // }
   if (!betNameElement) {
     log('Не найдена роспись ставки', 'crimson');
     return -9999;
   }
-  const betName = betNameElement.textContent.trim();
+
+  // const marketName = text(marketNameElement);
+  const betName = text(betNameElement);
+
   const parameterRegex = /([-+]?\d+(?:\.\d+)?)$/;
   const parameterMatch = betName.match(parameterRegex);
   if (parameterMatch) {

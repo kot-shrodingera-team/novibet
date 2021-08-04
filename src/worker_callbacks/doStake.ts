@@ -1,12 +1,11 @@
 import doStakeGenerator from '@kot-shrodingera-team/germes-generators/worker_callbacks/doStake';
 import { log } from '@kot-shrodingera-team/germes-utils';
 import getCoefficient from '../stake_info/getCoefficient';
-import { clearDoStakeTime } from '../stake_info/doStakeTime';
 
 const preCheck = (): boolean => {
-  const acceptChangesButton = document.querySelector(
+  const acceptChangesButton = document.querySelector<HTMLElement>(
     '.submit button[data-bind*="AcceptChanges"]:not([style="display: none;"])'
-  ) as HTMLElement;
+  );
   if (acceptChangesButton) {
     log('В купоне есть изменения. Принимаем. Ставку не делаем', 'crimson');
     acceptChangesButton.click();
@@ -23,16 +22,16 @@ const doStake = doStakeGenerator({
   preCheck,
   doStakeButtonSelector:
     '.submit button[data-bind*="SubmitBets"]:not([style="display: none;"])',
-  getCoefficient,
-  disabledCheck: true,
   // errorClasses: [
   //   {
   //     className: '',
   //     message: '',
   //   },
   // ],
+  disabledCheck: true,
+  getCoefficient,
   // postCheck,
-  clearDoStakeTime,
+  // context: () => document,
 });
 
 export default doStake;

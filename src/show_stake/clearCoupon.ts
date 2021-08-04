@@ -1,12 +1,11 @@
 import clearCouponGenerator from '@kot-shrodingera-team/germes-generators/show_stake/clearCoupon';
 import { log } from '@kot-shrodingera-team/germes-utils';
 import getStakeCount from '../stake_info/getStakeCount';
-// import getMaximumStake from '../stake_info/getMaximumStake';
 
-const preCheck = (): boolean => {
-  const continueButton = document.querySelector(
+const preCheck = async (): Promise<boolean> => {
+  const continueButton = document.querySelector<HTMLElement>(
     '.submit button[data-bind*="Continue"]:not([style="display: none;"])'
-  ) as HTMLElement;
+  );
   if (continueButton) {
     log('В купоне есть кнопка "Continue". Нажимаем', 'orange');
     return true;
@@ -28,16 +27,18 @@ const preCheck = (): boolean => {
 
 // const apiClear = (): void => {};
 
+// const postCheck = async (): Promise<boolean> => {
+//   return true;
+// };
+
 const clearCoupon = clearCouponGenerator({
   preCheck,
   getStakeCount,
   // apiClear,
-  clearSingleSelector: '',
+  // clearSingleSelector: '',
   clearAllSelector: '[ga-action="Clear All"]',
-  clearMode: 'all-only',
-  // maxUnload: {
-  //   getMaximumStake,
-  // },
+  // postCheck,
+  // context: () => document,
 });
 
 export default clearCoupon;

@@ -1,30 +1,40 @@
-// import getMaximumStakeGenerator, {
-//   maximumStakeReadyGenerator,
-// } from '@kot-shrodingera-team/germes-generators/stake_info/getMaximumStake';
-
+import getStakeInfoValueGenerator, {
+  stakeInfoValueReadyGenerator,
+} from '@kot-shrodingera-team/germes-generators/stake_info/getStakeInfoValue';
+import { StakeInfoValueOptions } from '@kot-shrodingera-team/germes-generators/stake_info/types';
 import getBalance from './getBalance';
 
-let maximumStake: number;
+// export const maximumStakeSelector = '';
 
-export const setMaximumStake = (newMaximumStake: number): void => {
-  maximumStake = newMaximumStake;
+const maximumStakeOptions: StakeInfoValueOptions = {
+  name: 'maximumStake',
+  fixedValue: () => getBalance(),
+  // valueFromText: {
+  //   text: {
+  //     // getText: () => '',
+  //     selector: maximumStakeSelector,
+  //     context: () => document,
+  //   },
+  //   replaceDataArray: [
+  //     {
+  //       searchValue: '',
+  //       replaceValue: '',
+  //     },
+  //   ],
+  //   removeRegex: /[\s,']/g,
+  //   matchRegex: /(\d+(?:\.\d+)?)/,
+  //   errorValue: 0,
+  // },
+  // zeroValues: [],
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // modifyValue: (value: number, extractType: string) => value,
+  // disableLog: false,
 };
 
-// export const maximumStakeReady = maximumStakeReadyGenerator({
-//   maximumStakeElementSelector: '',
-//   maximumStakeRegex: null,
-// });
+const getMaximumStake = getStakeInfoValueGenerator(maximumStakeOptions);
 
-// const getMaximumStake = getMaximumStakeGenerator({
-//   maximumStakeElementSelector: '',
-//   maximumStakeRegex: null,
-// });
-
-const getMaximumStake = (): number => {
-  if (maximumStake) {
-    return maximumStake;
-  }
-  return getBalance();
-};
+export const maximumStakeReady = stakeInfoValueReadyGenerator(
+  maximumStakeOptions
+);
 
 export default getMaximumStake;
