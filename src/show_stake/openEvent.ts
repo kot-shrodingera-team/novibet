@@ -13,10 +13,10 @@ const openEvent = async (): Promise<void> => {
 
   const event = events.find((eventElement) => {
     const competitorHomeElement = eventElement.querySelector(
-      '.competitors .home'
+      '.competitors .home, .matchCompetitors .home'
     );
     const competitorAwayElement = eventElement.querySelector(
-      '.competitors .away'
+      '.competitors .away, .matchCompetitors .away'
     );
     if (!competitorHomeElement || !competitorAwayElement) {
       return false;
@@ -36,7 +36,7 @@ const openEvent = async (): Promise<void> => {
   log('Открываем страницу события', 'orange');
 
   const eventNavigateElement = event.querySelector(
-    '.competitors'
+    '.competitors, .matchCompetitors'
   ) as HTMLElement;
   if (!eventNavigateElement) {
     throw new JsFailError('Не найден элемент для перехода в событие');
