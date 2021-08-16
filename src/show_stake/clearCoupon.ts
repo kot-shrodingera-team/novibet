@@ -10,19 +10,10 @@ const preCheck = async (): Promise<boolean> => {
     log('В купоне есть кнопка "Continue". Нажимаем', 'orange');
     return true;
   }
-  const stakeCount = getStakeCount();
-  const betPlacedIconElement = document.querySelector(
-    '#betslip .bs_selections .info .checkIcon'
-  );
-  if (stakeCount === 1 && betPlacedIconElement) {
-    log(
-      'В купоне одна принятая ставка. Пропускаем очистку купона',
-      'white',
-      true
-    );
-    return true;
-  }
-  return false;
+  // const betPlacedIconElement = document.querySelector(
+  //   '#betslip .bs_selections .info .checkIcon'
+  // );
+  return true;
 };
 
 // const apiClear = (): void => {};
